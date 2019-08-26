@@ -1,0 +1,22 @@
+version: "3"
+services:
+  my-mongo:
+    image: mongo:4.2.0
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_DATABASE=tut-01
+    volumes:
+      - ./.data/db:/data/db
+      - ./my-mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 27017:27017
+  my-mongo-express:
+    image: mongo-express:0.49
+    restart: always
+    depends_on:
+      - my-mongo
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=my-mongo
+    ports:
+      - 8081:8081
