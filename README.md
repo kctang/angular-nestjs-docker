@@ -37,4 +37,43 @@ Problem: Environment parameters hardcoded in Angular and NestJS.
 
 ## tut-02: Externalise Angular and NestJS Environment Properties
 
+### Externalise NestJS Configuration
+- Externalise configuration using `ConfigService`.
+- `ConfigModule` loads configuration file specified by `${process.env.NODE_ENV}.env`.
+- Create `dev.env` with key values.
+- Start NestJS with `NODE_ENV=dev npm run start` to set `dev` environment.
+- Change `MongooseModule` to use `forRootAsync`.
+
+```
+// MongooseModule.forRoot('mongodb://localhost/tut-02'),
+MongooseModule.forRootAsync({
+    imports: [ConfigModule],
+    useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('mongoDbUrl')
+    }),
+    inject: [ConfigService]
+}),
+```
+
+### Externalise Angular Configuration
+- `environment.ts` holds values that does not change, regardless of execution environment.
+- `environment.ts` has a `config` key that will be populated with values from `assets/config.json`.
+- Application fetch configuration from `./assets/config.json` before calling `bootstrapModule()`.
+- To use different environment configuration, replace `./assets/config.json` that exist after a production build.
+
+### Summary
+
+Learn: Application configuration via environment variables.
+
+```
+tut-103: running as docker containers
+production build angular image
+production build nestjs image
+tut-104: composing docker services
+combine them
+key learning:
+reverse proxy with traefik
+ingress network
+overlay network
+tut-105: scaling with docker swarm
 ...
