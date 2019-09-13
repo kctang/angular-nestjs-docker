@@ -112,10 +112,6 @@ docker-compose up
 
 
 ```
-tut-103: running as docker containers
-production build angular image
-production build nestjs image
-
 tut-104: composing docker services
 combine them
 key learning:
