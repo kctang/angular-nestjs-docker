@@ -14,9 +14,9 @@ import {ConfigService} from './config.service'
             useFactory: async (configService: ConfigService) => {
                 return {
                     useNewUrlParser: true,
-                    uri: configService.get('mongodb.url'),
-                    user: configService.get('mongodb.user'),
-                    pass: configService.get('mongodb.pass')
+                    uri: configService.get('mongodb_url'),
+                    user: configService.get('mongodb_user'),
+                    pass: configService.get('mongodb_pass')
                 }
             },
             inject: [ConfigService]

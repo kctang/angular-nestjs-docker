@@ -95,6 +95,17 @@ docker container rm app-ui -f -v
 - To override environment when creating Docker container, use `docker run --name app-api -e "NODE_ENV=prod" -p 3000:3000 -d app-api`.
 
 ## [tut-04] Composing Docker Services
+- Change NestJS's environment key separator from `.` to `_` to avoid need to escape characters.
+- Enhance ConfigService parsing to allow overriding config keys if specified as environment properties at runtime.
+- `1.rebuild.sh` builds Docker image for app-api and app-ui.
+- Add `my-api` and `my-ui` to `docker-compose.yml`.
+- Override `my-api`'s environment with service name for MongoDB called `my-mongo`.
+
+To use this, just run from `tut-04`:
+```
+./1.rebuild.sh
+docker-compose up
+```
 
 ## [tut-05] Running in Docker Swarm
 
