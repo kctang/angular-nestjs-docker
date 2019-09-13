@@ -6,6 +6,8 @@ services:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
       - MONGO_INITDB_DATABASE=tut-03
+      - MONGO_INITDB_ROOT_USERNAME=my-tut-03-root
+      - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
       - ./.data/db:/data/db
       - ./my-mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
@@ -18,5 +20,7 @@ services:
       - my-mongo
     environment:
       - ME_CONFIG_MONGODB_SERVER=my-mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=my-tut-03-root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
     ports:
       - 8081:8081

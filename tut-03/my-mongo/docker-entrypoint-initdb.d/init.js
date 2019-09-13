@@ -1,6 +1,11 @@
+db.createUser({
+    user: 'my-tut-03-user',
+    pwd: 'password',
+    roles: [{role: 'dbOwner', db: 'tut-03'}]
+});
 db.createCollection("cats");
-db.cats.insertOne({ name: "orange" });
-db.cats.insertOne({ name: "kimchi" });
-db.cats.insertOne({ name: "lassie" });
-db.cats.insertOne({ name: "obiwan" });
-db.cats.insertOne({ name: "jumaat" });
+db.cats.insertOne({name: "orange"});
+db.cats.insertOne({name: "kimchi"});
+db.cats.insertOne({name: "lassie"});
+db.cats.insertOne({name: "obiwan"});
+db.cats.insertOne({name: "jumaat"});

@@ -9,12 +9,16 @@ import {ConfigService} from './config.service'
 @Module({
     imports: [
         ConfigModule,
-        // MongooseModule.forRoot('mongodb://localhost/tut-02'),
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
-            useFactory: async (configService: ConfigService) => ({
-                uri: configService.get('mongoDbUrl')
-            }),
+            useFactory: async (configService: ConfigService) => {
+                return {
+                    useNewUrlParser: true,
+                    uri: configService.get('mongodb.url'),
+                    user: configService.get('mongodb.user'),
+                    pass: configService.get('mongodb.pass')
+                }
+            },
             inject: [ConfigService]
         }),
         CatsModule],

@@ -10,7 +10,7 @@ if (environment.production) {
     enableProdMode();
 }
 
-from(fetch('./assets/config.json')).pipe(
+from(fetch('./assets/config/config.json')).pipe(
     switchMap(response => from(response.json())),
     tap(jsonConfig => {
         environment.config = {

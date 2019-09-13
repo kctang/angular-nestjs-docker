@@ -1,6 +1,6 @@
 # Scaling Full Stack Application Deployment with Docker Swarm
 
-## tut-01: Create demo full stack application
+## [tut-01] Create demo full stack application
 
 Objective: Angular app makes REST call to NestJS API server that reads data from MongoDB.
 
@@ -35,7 +35,7 @@ this.http.get<Cat[]>('http://localhost:3000/cats').pipe(
 Learn: Run the most simple full stack application.
 Problem: Environment parameters hardcoded in Angular and NestJS.
 
-## tut-02: Externalise Angular and NestJS Environment Properties
+## [tut-02] Externalise Angular and NestJS Environment Properties
 
 ### Externalise NestJS Configuration
 - Externalise configuration using `ConfigService`.
@@ -65,10 +65,46 @@ MongooseModule.forRootAsync({
 
 Learn: Application configuration via environment variables.
 
+## [tut-03] Running Angular and NestJS via Docker Container
+
+### Angular
+- `app-ui/Dockerfile` is a multi-stage Dockerfile for Angular application.
+- Use Nginx to serve production Angular build.
+- Change `./assets/config.json` to `./assets/config/config.json` so that configuration can be switched to local volume (if needed).
+- Configuration files stored in `config/config.*.json` can be to the image when building. Defaults to `prod`.
+- Some useful Docker commands:
+```
+docker build -t app-ui .
+docker run --name app-ui -p 80:80 -d app-ui
+docker logs app-ui -f
+docker exec -it app-ui /bin/sh
+docker container start app-ui
+docker container stop app-ui
+docker container rm app-ui -f -v
+```
+
+### Changes to MongoDB Configuration
+
+- Reconfigure MongoDB with auth to enable access from remote IP (i.e. from one docker container to another - without docker compose).
+- Update `docker-entrypoint-initdb.d` to create application's user. 
+
+### NestJS
+- Dockerfile for NestJS builds the application.
+- Set NODE_ENV prod environment.
+- Run "npm run start:prod".
+- To override environment when creating Docker container, use `docker run --name app-api -e "NODE_ENV=prod" -p 3000:3000 -d app-api`.
+
+## [tut-04] Composing Docker Services
+
+## [tut-05] Running in Docker Swarm
+
+
+
 ```
 tut-103: running as docker containers
 production build angular image
 production build nestjs image
+
 tut-104: composing docker services
 combine them
 key learning:
