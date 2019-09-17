@@ -1,0 +1,26 @@
+version: "3"
+services:
+  my-mongo:
+    image: mongo:4.2.0
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_DATABASE=tut-05
+      - MONGO_INITDB_ROOT_USERNAME=my-tut-05-root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - /home/docker/data/db:/data/db
+      - /home/docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 27017:27017
+  my-mongo-express:
+    image: mongo-express:0.49
+    restart: always
+    depends_on:
+      - my-mongo
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=my-mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=my-tut-05-root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+    ports:
+      - 8081:8081

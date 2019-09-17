@@ -1,0 +1,18 @@
+version: "3"
+services:
+  my-api:
+    image: kctang/big2:app-api
+    deploy:
+      replicas: 2
+    environment:
+      - mongodb_url=mongodb://192.168.0.199/tut-05
+      - mongodb_user=my-tut-05-user
+      - mongodb_pass=password
+    ports:
+      - 3000:3000
+  my-ui:
+    image: kctang/big2:app-ui
+    deploy:
+      replicas: 5
+    ports:
+      - 80:80

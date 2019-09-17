@@ -8,4 +8,3 @@ popd
 pushd app-ui
 docker build -t app-ui .
 popd
-

@@ -108,15 +108,10 @@ docker-compose up
 ```
 
 ## [tut-05] Running in Docker Swarm
+- Using Docker Engine, create a VirtualBox machine that runs MongoDB and MongoDB Express.
+- Using Docker Engine, create a VirtualBox machines driven Docker Swarm with three nodes to run applications.
+- Deploy app and ui as an application stack (`my-app`) in the Docker Swarm cluster, with scripts to scale number of containers for each service.
+- For this to work, images are pushed to a private Docker Hub repository.
+- Repeat the above Digital Ocean's droplets and volumes.
 
-
-
-```
-tut-104: composing docker services
-combine them
-key learning:
-reverse proxy with traefik
-ingress network
-overlay network
-tut-105: scaling with docker swarm
-...
+## [tut-06] Route Traefik
